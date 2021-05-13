@@ -1,3 +1,3 @@
-# GoScript
+# GoCalculator
 
-A new interpreted programming language written in Go.
+A console calculator written in Go.
