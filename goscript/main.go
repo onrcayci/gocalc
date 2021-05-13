@@ -5,7 +5,6 @@ import (
 	"os"
 )
 
-
 func main() {
 
 	// get the command line arguments
