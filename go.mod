@@ -1,3 +1,3 @@
-module github.com/onrcayci/goscript
+module github.com/onrcayci/gocalculator
 
-go 1.16
+go 1.15

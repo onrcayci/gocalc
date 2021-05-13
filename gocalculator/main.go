@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/onrcayci/goscript/parser"
+	"github.com/onrcayci/gocalculator/parser"
 )
 
 func main() {
