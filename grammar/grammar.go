@@ -1,8 +1,8 @@
 package grammar
 
-func IsBinaryOperator(operator string) bool {
+func IsOperator(operator string) bool {
 	switch operator {
-	case "+", "-", "*", "/", "^":
+	case "+", "-", "*", "/", "^", "(", ")":
 		return true
 	default:
 		return false
@@ -11,8 +11,6 @@ func IsBinaryOperator(operator string) bool {
 
 func GetOperatorPrecedence(operator string) int {
 	switch operator {
-	case "(", ")":
-		return 4
 	case "^":
 		return 3
 	case "*", "/":
