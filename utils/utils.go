@@ -3,7 +3,6 @@ package utils
 import (
 	"bufio"
 	"container/list"
-	"fmt"
 	"os"
 
 	"github.com/onrcayci/gocalculator/grammar"
@@ -48,24 +47,10 @@ func InfixToPostFix(tokens []string) []string {
 			stack.PushFront(currentToken)
 		}
 	}
-
-	// pop all remaining elements from the stack
 	for stack.Len() != 0 {
 		top := stack.Front()
 		stack.Remove(top)
 		postfix = append(postfix, top.Value.(string))
 	}
-
 	return postfix
-}
-
-func ExecuteInput(tokens []string) {
-	switch tokens[0] {
-	case "exit":
-		os.Exit(0)
-	default:
-		fmt.Println(tokens)
-		postfix := InfixToPostFix(tokens)
-		fmt.Println(postfix)
-	}
 }
