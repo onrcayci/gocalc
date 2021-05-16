@@ -5,14 +5,14 @@ import (
 	"text/scanner"
 )
 
-func Tokenize(fileContents string) []string {
+func Tokenize(input string) []string {
 
 	// initialize the return array
 	var tokens []string
 
 	// initialize the scanner
 	var scan scanner.Scanner
-	scan.Init(strings.NewReader(fileContents))
+	scan.Init(strings.NewReader(input))
 
 	// loop over the input string to tokenize it
 	for token := scan.Scan(); token != scanner.EOF; token = scan.Scan() {
