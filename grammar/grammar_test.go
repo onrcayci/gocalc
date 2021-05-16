@@ -15,3 +15,20 @@ func TestIsOperator_ReturnsTrue(t *testing.T) {
 		}
 	}
 }
+
+func TestIsOperator_ReturnsFalse(t *testing.T) {
+	operands := [2]string{"1", "123.342"}
+	for i := 0; i < len(operands); i++ {
+		result := grammar.IsOperator(operands[i])
+		if result {
+			t.Errorf("Fail to detect operand %s as an operand!\n", operands[i]);
+		}
+	}
+}
+
+func TestGetOperatorPrecedence_Power(t *testing.T) {
+	precendence := grammar.GetOperatorPrecedence("^")
+	if precendence != 3 {
+		t.Errorf("Fail to detect precedence of '^'\nExpected: 3\nOutcome: %T\n", precendence)
+	}
+}
