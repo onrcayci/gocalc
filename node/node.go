@@ -16,7 +16,7 @@ type node struct {
 	value string
 }
 
-func NewNode(value string) *node {
+func new(value string) *node {
 	n := node{value: value}
 	return &n
 }
@@ -32,12 +32,12 @@ func BuildExpressionTree(tokens []string) *node {
 
 		// if operand, push it into the operand stack
 		if !grammar.IsOperator(currentToken) {
-			operandNode := NewNode(currentToken)
+			operandNode := new(currentToken)
 			operandStack.PushFront(operandNode)
 		} else {
 
 			// initialize the operator node
-			operatorNode := NewNode(currentToken)
+			operatorNode := new(currentToken)
 
 			// pop the operand nodes from the stack
 			operandNode1 := operandStack.Front()
@@ -68,13 +68,13 @@ func (n *node) SolveExpressionTree() (string, error) {
 		utils.HandleError(err)
 		R, err := n.right.SolveExpressionTree()
 		utils.HandleError(err)
-		return Calculate(L, R, n.value), nil
+		return calculate(L, R, n.value), nil
 	} else {
 		return "", errors.New("cannot use nil expression to solve an equation")
 	}
 }
 
-func Calculate(L string, R string, operator string) string {
+func calculate(L string, R string, operator string) string {
 	var result float64
 	left, err := strconv.ParseFloat(L, 64)
 	utils.HandleError(err)
