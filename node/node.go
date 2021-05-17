@@ -6,8 +6,8 @@ import (
 	"math"
 	"strconv"
 
-	"github.com/onrcayci/gocalculator/grammar"
-	"github.com/onrcayci/gocalculator/utils"
+	"github.com/onrcayci/gocalc/grammar"
+	"github.com/onrcayci/gocalc/utils"
 )
 
 type node struct {

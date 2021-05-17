@@ -5,7 +5,7 @@ import (
 	"container/list"
 	"os"
 
-	"github.com/onrcayci/gocalculator/grammar"
+	"github.com/onrcayci/gocalc/grammar"
 )
 
 func HandleError(err error) {
