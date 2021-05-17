@@ -27,17 +27,16 @@ func BuildExpressionTree(tokens []string) *node {
 	operandStack := list.New()
 
 	// loop through all of the input tokens
-	for i := 0; i < len(tokens); i++ {
-		currentToken := tokens[i]
+	for _, token := range tokens {
 
 		// if operand, push it into the operand stack
-		if !grammar.IsOperator(currentToken) {
-			operandNode := new(currentToken)
+		if !grammar.IsOperator(token) {
+			operandNode := new(token)
 			operandStack.PushFront(operandNode)
 		} else {
 
 			// initialize the operator node
-			operatorNode := new(currentToken)
+			operatorNode := new(token)
 
 			// pop the operand nodes from the stack
 			operandNode1 := operandStack.Front()
