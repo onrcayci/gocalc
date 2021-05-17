@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/onrcayci/gocalculator/node"
-	"github.com/onrcayci/gocalculator/parser"
-	"github.com/onrcayci/gocalculator/utils"
+	"github.com/onrcayci/gocalc/node"
+	"github.com/onrcayci/gocalc/parser"
+	"github.com/onrcayci/gocalc/utils"
 )
 
 func main() {

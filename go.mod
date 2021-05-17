@@ -1,3 +1,3 @@
-module github.com/onrcayci/gocalculator
+module github.com/onrcayci/gocalc
 
 go 1.15
