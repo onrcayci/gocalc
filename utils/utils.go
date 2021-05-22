@@ -24,13 +24,12 @@ func GetInput() string {
 func InfixToPostFix(tokens []string) []string {
 	var postfix []string
 	stack := list.New()
-	for i := 0; i < len(tokens); i++ {
-		currentToken := tokens[i]
-		if !grammar.IsOperator(currentToken) {
-			postfix = append(postfix, currentToken)
-		} else if currentToken == "(" {
-			stack.PushFront(currentToken)
-		} else if currentToken == ")" {
+	for _, token := range tokens {
+		if !grammar.IsOperator(token) {
+			postfix = append(postfix, token)
+		} else if token == "(" {
+			stack.PushFront(token)
+		} else if token == ")" {
 			for stack.Len() != 0 && stack.Front().Value.(string) != "(" {
 				top := stack.Front()
 				stack.Remove(top)
@@ -39,12 +38,12 @@ func InfixToPostFix(tokens []string) []string {
 			lpar := stack.Front()
 			stack.Remove(lpar)
 		} else {
-			for stack.Len() != 0 && grammar.GetOperatorPrecedence(currentToken) <= grammar.GetOperatorPrecedence(stack.Front().Value.(string)) {
+			for stack.Len() != 0 && grammar.GetOperatorPrecedence(token) <= grammar.GetOperatorPrecedence(stack.Front().Value.(string)) {
 				top := stack.Front()
 				stack.Remove(top)
 				postfix = append(postfix, top.Value.(string))
 			}
-			stack.PushFront(currentToken)
+			stack.PushFront(token)
 		}
 	}
 	for stack.Len() != 0 {
