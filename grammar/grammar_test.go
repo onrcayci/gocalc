@@ -3,7 +3,7 @@ package grammar_test
 import (
 	"testing"
 
-	"github.com/onrcayci/gocalculator/grammar"
+	"github.com/onrcayci/gocalc/grammar"
 )
 
 func TestIsOperator_ReturnsTrue(t *testing.T) {
