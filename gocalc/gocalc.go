@@ -21,7 +21,8 @@ func main() {
 			os.Exit(0)
 		default:
 			postfix := utils.InfixToPostFix(tokens)
-			root := node.BuildExpressionTree(postfix)
+			root, err := node.BuildExpressionTree(postfix)
+			utils.HandleError(err)
 			result, err := root.SolveExpressionTree()
 			utils.HandleError(err)
 			fmt.Println(result)

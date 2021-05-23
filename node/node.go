@@ -21,58 +21,6 @@ func new(value string) *node {
 	return &n
 }
 
-func BuildExpressionTree(tokens []string) *node {
-
-	// instantiate an operand stack to store the operands of the operations
-	operandStack := list.New()
-
-	// loop through all of the input tokens
-	for _, token := range tokens {
-
-		// if operand, push it into the operand stack
-		if !grammar.IsOperator(token) {
-			operandNode := new(token)
-			operandStack.PushFront(operandNode)
-		} else {
-
-			// initialize the operator node
-			operatorNode := new(token)
-
-			// pop the operand nodes from the stack
-			operandNode1 := operandStack.Front()
-			operandStack.Remove(operandNode1)
-			operandNode2 := operandStack.Front()
-			operandStack.Remove(operandNode2)
-
-			// add operand nodes as children of the operator node
-			operatorNode.right = operandNode1.Value.(*node)
-			operatorNode.left = operandNode2.Value.(*node)
-
-			// add the operator node into the stack in case it is the operand of another expression
-			operandStack.PushFront(operatorNode)
-		}
-	}
-
-	// get the root node from the stack
-	expressionTree := operandStack.Front().Value.(*node)
-	return expressionTree
-}
-
-func (n *node) SolveExpressionTree() (string, error) {
-	if n != nil {
-		if !grammar.IsOperator(n.value) {
-			return n.value, nil
-		}
-		L, err := n.left.SolveExpressionTree()
-		utils.HandleError(err)
-		R, err := n.right.SolveExpressionTree()
-		utils.HandleError(err)
-		return calculate(L, R, n.value), nil
-	} else {
-		return "", errors.New("cannot use nil expression to solve an equation")
-	}
-}
-
 func calculate(L string, R string, operator string) string {
 	var result float64
 	left, err := strconv.ParseFloat(L, 64)
@@ -92,4 +40,77 @@ func calculate(L string, R string, operator string) string {
 		result = math.Pow(left, right)
 	}
 	return strconv.FormatFloat(result, 'f', -1, 64)
+}
+
+func BuildExpressionTree(tokens []string) (*node, error) {
+
+	// instantiate an operand stack to store the operands of the operations
+	operandStack := list.New()
+
+	// loop through all of the input tokens
+	for _, token := range tokens {
+
+		// if operand, push it into the operand stack
+		if !grammar.IsOperator(token) {
+			operandNode := new(token)
+			operandStack.PushFront(operandNode)
+		} else {
+
+			// initialize the operator node
+			operatorNode := new(token)
+
+			// pop the operand nodes from the stack
+			operandNode1 := operandStack.Front()
+			if operandNode1 == nil {
+				return nil, errors.New("cannot get the top element of an empty stack")
+			}
+			operandStack.Remove(operandNode1)
+			operandNode2 := operandStack.Front()
+			if operandNode2 == nil {
+				return nil, errors.New("cannot get the top element of an empty stack")
+			}
+			operandStack.Remove(operandNode2)
+
+			// add operand nodes as children of the operator node
+			operatorNode.right = operandNode1.Value.(*node)
+			operatorNode.left = operandNode2.Value.(*node)
+
+			// add the operator node into the stack in case it is the operand of another expression
+			operandStack.PushFront(operatorNode)
+		}
+	}
+
+	// get the root node from the stack
+	expressionTree := operandStack.Front().Value.(*node)
+	return expressionTree, nil
+}
+
+func (n *node) SolveExpressionTree() (string, error) {
+	if n != nil {
+		if !grammar.IsOperator(n.value) {
+			return n.value, nil
+		}
+		L, err := n.left.SolveExpressionTree()
+		utils.HandleError(err)
+		R, err := n.right.SolveExpressionTree()
+		utils.HandleError(err)
+		return calculate(L, R, n.value), nil
+	} else {
+		return "", errors.New("cannot use nil expression to solve an equation")
+	}
+}
+
+func (n *node) String() string {
+	if n == nil {
+		return ""
+	}
+	result := ""
+	if n.left != nil {
+		result += n.left.String() + " "
+	}
+	result += n.value
+	if n.right != nil {
+		result += " " + n.right.String()
+	}
+	return result
 }
